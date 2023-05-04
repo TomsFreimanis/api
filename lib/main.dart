@@ -63,7 +63,7 @@ class _GiphySearchAppState extends State<GiphySearchApp> {
                           const StaggeredTile.fit(1),
                       itemBuilder: (context, index) {
                         final result = _results[index];
-                        final url = result['images']['downsized_medium']['url'];
+                        final url = result['images']['fixed_width']['url'];
                         return Image.network(url);
                       },
                     )
