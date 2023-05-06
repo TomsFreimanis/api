@@ -30,26 +30,46 @@ class _GiphySearchAppState extends State<GiphySearchApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-       theme: ThemeData(fontFamily: 'Montserrat'),
+      theme: ThemeData(
+        fontFamily: 'Montserrat',
+        primaryColor: Colors.blue,
+        accentColor: Colors.white,
+        textTheme: const TextTheme(
+          headline1: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+          bodyText1: TextStyle(fontSize: 16, color: Colors.white),
+        ),
+      ),
       home: Scaffold(
         appBar: AppBar(
           leading: const Icon(Icons.add_reaction_outlined),
-          title: const Text('Search for your favorite gifs'),
+          title: const Text('Search for your favorite gifs', style: TextStyle(color: Colors.white),),
           centerTitle: true,
         ),
         body: Column(
           children: [
-            TextField(
-              controller: _searchController,
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  Future.delayed(
-                      const Duration(milliseconds: 300), () => _search(value));
-                }
-              },
-              decoration: const InputDecoration(
-                hintText: 'Search for GIFs',
-                contentPadding: EdgeInsets.all(16),
+            Container(
+              color: Colors.blue[800],
+              padding: const EdgeInsets.all(16),
+              child: TextField(
+                controller: _searchController,
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    Future.delayed(
+                        const Duration(milliseconds: 300), () => _search(value));
+                  }
+                },
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Search for GIFs',
+                  hintStyle: const TextStyle(color: Colors.white54),
+                  contentPadding: const EdgeInsets.all(16),
+                  filled: true,
+                  fillColor: Colors.blue[700],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
               ),
             ),
             Expanded(
@@ -64,7 +84,10 @@ class _GiphySearchAppState extends State<GiphySearchApp> {
                       itemBuilder: (context, index) {
                         final result = _results[index];
                         final url = result['images']['fixed_width']['url'];
-                        return Image.network(url);
+                        return Image.network(
+                          url,
+                          fit: BoxFit.cover,
+                        );
                       },
                     )
                   : const Center(
